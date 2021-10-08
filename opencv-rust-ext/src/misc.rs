@@ -1,3 +1,4 @@
+use num::traits::AsPrimitive;
 use opencv::core::*;
 use opencv::prelude::*;
 
@@ -6,7 +7,7 @@ pub trait FromPoint<T: ValidPointType + AsPrimitive<S>, S: 'static + ValidPointT
 }
 
 impl<T: ValidPointType + AsPrimitive<S>, S: 'static + ValidPointType> FromPoint<T, S>
-for Point_<S>
+    for Point_<S>
 {
     fn from_point(src: &Point_<T>) -> Self {
         Self {
@@ -24,6 +25,9 @@ mod tests {
 
     #[test]
     fn from_point() {
-        assert_eq!(Point2f::new(42.0, 100.0), Point2f::from_point(&Point2i::new(42, 100)));
+        assert_eq!(
+            Point2f::new(42.0, 100.0),
+            Point2f::from_point(&Point2i::new(42, 100))
+        );
     }
 }

@@ -9,3 +9,4 @@ edition = "2018"
 opencv = "0.55.0"
 opencv_macro = { path = "../opencv-rust-macro" }
 anyhow = "1.0.44"
+num = "0.4"

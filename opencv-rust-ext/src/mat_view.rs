@@ -1,6 +1,7 @@
+use std::ops::*;
+
 use anyhow::Result;
 use opencv::prelude::*;
-use std::ops::*;
 
 pub struct MatView<'a, T> {
     rows: usize,
