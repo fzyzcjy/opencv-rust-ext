@@ -22,6 +22,8 @@ struct OpencvExpr;
 impl Fold for OpencvExpr {
     // ref: https://docs.rs/syn/1.0.80/syn/fold/index.html#example
     // ref: https://github.com/fzyzcjy/yplusplus/issues/1073#issuecomment-938616160
+    // performance: Rust understands `a.into_result()?` is equivalent to `a` if a is not a Result.
+    //              for experiment, see https://godbolt.org/z/K7M51d4bE
     fn fold_expr(&mut self, expr: Expr) -> Expr {
         let child = fold_expr(self, expr);
         Expr::Paren(ExprParen {
