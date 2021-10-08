@@ -29,21 +29,18 @@ impl Fold for OpencvExpr {
             paren_token: Default::default(),
             expr: Box::new(Expr::Try(ExprTry {
                 attrs: Vec::new(),
-                expr: Box::new(Expr::Paren(ExprParen {
+                expr: Box::new(Expr::MethodCall(ExprMethodCall {
                     attrs: vec![],
-                    paren_token: Default::default(),
-                    expr: Box::new(Expr::MethodCall(ExprMethodCall {
+                    receiver: Box::new(Expr::Paren(ExprParen {
                         attrs: vec![],
-                        receiver: Box::new(child),
-                        dot_token: Default::default(),
-                        method: proc_macro2::Ident::new(
-                            "into_result",
-                            proc_macro2::Span::call_site(),
-                        ),
-                        turbofish: None,
                         paren_token: Default::default(),
-                        args: Default::default(),
+                        expr: Box::new(child),
                     })),
+                    dot_token: Default::default(),
+                    method: proc_macro2::Ident::new("into_result", proc_macro2::Span::call_site()),
+                    turbofish: None,
+                    paren_token: Default::default(),
+                    args: Default::default(),
                 })),
                 question_token: Default::default(),
             })),

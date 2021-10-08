@@ -11,10 +11,10 @@ fn test_expr_macro() -> Result<()> {
 
     // let result = failable_expr! { a - b / c };
 
-    // let result = failable_expr! { a - b };
+    let result = failable_expr! { a - b };
     // let result = ((((a.into_result())?) - ((b.into_result())?).into_result())?);
 
-    let result = failable_expr! { a };
+    // let result = failable_expr! { a };
     // let result = ((a.into_result())?);
 
     println!("result={}", result);
