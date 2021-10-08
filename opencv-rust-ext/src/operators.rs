@@ -1,3 +1,6 @@
+use std::error::Error;
+use std::fmt::{Debug, Display, Formatter};
+
 pub trait IntoResult<T, E> {
     fn into_result(self) -> Result<T, E>;
 }
@@ -8,11 +11,22 @@ impl<T, E> IntoResult<T, E> for Result<T, E> {
     }
 }
 
-impl<T> IntoResult<T, ()> for T {
-    fn into_result(self) -> Result<T, ()> {
+impl<T> IntoResult<T, IntoResultDummyError> for T {
+    fn into_result(self) -> Result<T, IntoResultDummyError> {
         Ok(self)
     }
 }
+
+#[derive(Debug, Clone, Eq, PartialEq)]
+pub struct IntoResultDummyError;
+
+impl Display for IntoResultDummyError {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        write!(f, "IntoResultDummyError")
+    }
+}
+
+impl Error for IntoResultDummyError {}
 
 #[cfg(test)]
 mod test {
