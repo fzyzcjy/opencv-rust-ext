@@ -9,4 +9,5 @@ name = "opencv_ext"
 [dependencies]
 opencv = "0.55.0"
 quote = "1.0"
+anyhow = "1.0.44"
 syn = { version = "1.0.80", features = ["fold"] }

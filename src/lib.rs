@@ -1,6 +1,10 @@
 use opencv::core::*;
 use opencv::prelude::*;
 
+pub use mat_view::*;
+
+mod mat_view;
+
 pub trait FromPoint<T: ValidPointType + AsPrimitive<S>, S: 'static + ValidPointType> {
     fn from_point(src: &Point_<T>) -> Self;
 }
