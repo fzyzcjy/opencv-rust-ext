@@ -1,11 +1,11 @@
 use proc_macro::TokenStream;
 
 use quote::quote;
+use syn::fold::{fold_expr, Fold};
 use syn::*;
-use syn::fold::{Fold, fold_expr};
 
 #[proc_macro]
-pub fn opencv_expr(input: TokenStream) -> TokenStream {
+pub fn failable_expr(input: TokenStream) -> TokenStream {
     let src_ast: Expr = parse_macro_input!(input);
     println!("opencv_expr src_ast={:#?}", src_ast);
 
