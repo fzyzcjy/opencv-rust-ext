@@ -1,22 +1,20 @@
 use anyhow::Result;
+use opencv::core::CV_8UC1;
+use opencv::prelude::*;
 
 use opencv_ext::failable_expr;
 use opencv_ext::IntoResult;
 
 #[test]
 fn test_expr_macro() -> Result<()> {
-    let a = 42;
-    let b = 100;
-    let c = 50;
+    let a = Mat::new_rows_cols_with_default(3, 5, CV_8UC1, 42.0.into())?;
+    let b = Mat::new_rows_cols_with_default(3, 5, CV_8UC1, 100.0.into())?;
+    let c = 10u8;
 
-    let result = failable_expr! { a - b / c };
+    assert_eq!(
+        failable_expr! { a + b - c },
+        Mat::new_rows_cols_with_default(3, 5, CV_8UC1, 132.0.into())
+    );
 
-    // let result = failable_expr! { a - b };
-    // let result = ((((a.into_result())?) - ((b.into_result())?).into_result())?);
-
-    // let result = failable_expr! { a };
-    // let result = ((a.into_result())?);
-
-    println!("result={}", result);
     Ok(())
 }
