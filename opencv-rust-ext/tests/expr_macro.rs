@@ -1,5 +1,4 @@
 use anyhow::Result;
-
 use opencv_ext::opencv_expr;
 
 #[test]
