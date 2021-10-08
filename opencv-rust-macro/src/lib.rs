@@ -1,4 +1,4 @@
-use proc_macro::TokenStream;
+use proc_macro::*;
 
 use quote::quote;
 use syn::fold::{fold_expr, Fold};
@@ -19,11 +19,21 @@ struct OpencvExpr;
 
 impl Fold for OpencvExpr {
     // ref: https://docs.rs/syn/1.0.80/syn/fold/index.html#example
+    // ref: https://github.com/fzyzcjy/yplusplus/issues/1073#issuecomment-938616160
     fn fold_expr(&mut self, expr: Expr) -> Expr {
-        Expr::Paren(ExprParen {
+        let child = fold_expr(self, expr);
+        Expr::Try(ExprTry {
             attrs: Vec::new(),
-            expr: Box::new(fold_expr(self, expr)),
-            paren_token: token::Paren::default(),
+            expr: Box::new(Expr::MethodCall(ExprMethodCall {
+                attrs: vec![],
+                receiver: Box::new(child),
+                dot_token: Default::default(),
+                method: Ident::new("into_result", Span::call_site()),
+                turbofish: None,
+                paren_token: Default::default(),
+                args: vec![],
+            })),
+            question_token: Default::default(),
         })
     }
 }
