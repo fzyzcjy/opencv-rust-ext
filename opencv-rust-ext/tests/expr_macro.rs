@@ -11,6 +11,11 @@ fn test_expr_macro_opencv() -> Result<()> {
     let b = Mat::new_rows_cols_with_default(2, 3, CV_8UC1, 10.0.into())?;
     let c = Mat::new_rows_cols_with_default(2, 3, CV_8UC1, 50.0.into())?;
     let d = Mat::new_rows_cols_with_default(2, 3, CV_8UC1, 2.0.into())?;
+    let x = (&a / d - &b + &c / 2.0f64 - Scalar::from(10f64))
+        .into_result()?
+        .to_mat()?;
+    println!("x={:?}", x.data_bytes());
+
     // let c: Mat = (failable_expr! { a - b }).to_mat()?;
     // let c: Mat = ((((a).into_result()?) - ((b).into_result()?)).into_result()?).to_mat()?;
     // let c: Mat = (a.into_result()? - b.into_result()?).into_result()?.to_mat()?;
@@ -34,8 +39,6 @@ fn test_expr_macro_opencv() -> Result<()> {
 
     // let u = &a - &b;
     // let x = ((&a - &b) - (&c - &d)).into_result()?.to_mat()?;
-    let x = (&a / d - &b + &c - 10f64).into_result()?.to_mat()?;
-    println!("x={:?}", x.data_bytes());
 
     // assert_eq!(
     //     c.data_bytes()?,
