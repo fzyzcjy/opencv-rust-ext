@@ -10,3 +10,6 @@ opencv = "0.55.0"
 opencv_macro = { path = "../opencv-rust-macro" }
 anyhow = "1.0.44"
 num = "0.4"
+
+[patch.crates-io]
+opencv = { path = "/Users/tom/RefCode/opencv-rust" }
