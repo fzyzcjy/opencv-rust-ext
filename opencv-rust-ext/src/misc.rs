@@ -1,6 +1,6 @@
 use num::traits::AsPrimitive;
+
 use opencv::core::*;
-use opencv::prelude::*;
 
 pub trait FromPoint<T: ValidPointType + AsPrimitive<S>, S: 'static + ValidPointType> {
     fn from_point(src: &Point_<T>) -> Self;
